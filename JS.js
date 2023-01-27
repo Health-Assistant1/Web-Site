@@ -17,3 +17,70 @@ for (i = 0; i < faq.length; i++) {
 }
 }
 
+
+function filterData(){
+  //////////////////////////////////////////////////////////////////////////////
+  const dataList = document.getElementById("data");
+  const searchInput = document.getElementById("search");
+  const pagination = document.getElementById("pagination");
+  const itemsPerPage = 20;
+  
+  let filteredData = [];
+  let currentPage = 1;
+  
+  // Retrieve data from file
+  fetch("sick.txt")
+    .then(response => response.text())
+    .then(data => {
+      const dataArray = data.split("\n");
+  
+      // Filter data based on search input
+      searchInput.addEventListener("input", event => {
+        const searchTerm = event.target.value.toLowerCase();
+        filteredData = dataArray.filter(item => item.toLowerCase().startsWith(searchTerm));
+        currentPage = 1;
+        updateDataList();
+        updatePagination();
+      });
+  
+      updateDataList();
+      updatePagination();
+    });
+
+  
+  function updateDataList() {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+  
+    dataList.innerHTML = "";
+    filteredData.slice(startIndex, endIndex).forEach(item => {
+      const listItem = document.createElement("li");
+      listItem.textContent = item;
+      dataList.appendChild(listItem);
+    });
+  }
+  
+  function updatePagination() {
+    pagination.innerHTML = "";
+    const pageCount = Math.ceil(filteredData.length / itemsPerPage);
+  
+    for (let i = 1; i <= pageCount; i++) {
+      const button = document.createElement("button");
+      button.textContent = i;
+  
+      if (i === currentPage) {
+        button.classList.add("active");
+      }
+  
+      button.addEventListener("click", event => {
+        currentPage = i;
+        updateDataList();
+        updatePagination();
+      });
+  
+      pagination.appendChild(button);
+    }
+  }
+
+}
+  ///////////////////////////////////////////////
