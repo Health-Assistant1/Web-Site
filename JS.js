@@ -63,24 +63,58 @@ function filterData(){
   function updatePagination() {
     pagination.innerHTML = "";
     const pageCount = Math.ceil(filteredData.length / itemsPerPage);
-  
-    for (let i = 1; i <= pageCount; i++) {
-      const button = document.createElement("button");
-      button.textContent = i;
-  
-      if (i === currentPage) {
-        button.classList.add("active");
-      }
-  
-      button.addEventListener("click", event => {
-        currentPage = i;
-        updateDataList();
-        updatePagination();
-      });
-  
-      pagination.appendChild(button);
+    let startPage = currentPage;
+    let endPage = currentPage + 4;
+
+    if(currentPage > 3){
+        startPage = currentPage - 2;
+        endPage = currentPage + 1;
     }
-  }
+    if(endPage > pageCount){
+        endPage = pageCount;
+        startPage = endPage - 4;
+    }
+    if(startPage < 1){
+        startPage = 1;
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+        const button = document.createElement("button");
+        button.textContent = i;
+        if (i === currentPage) {
+            button.classList.add("active");
+        }
+        button.addEventListener("click", event => {
+            currentPage = i;
+            updateDataList();
+            updatePagination();
+        });
+
+        pagination.appendChild(button);
+    }
+
+    if(currentPage > 1){
+        const prevButton = document.createElement("button");
+        prevButton.textContent = "<<";
+        prevButton.addEventListener("click", event => {
+            currentPage--;
+            updateDataList();
+            updatePagination();
+        });
+        pagination.insertBefore(prevButton, pagination.firstChild);
+    }
+    if(currentPage < pageCount){
+        const nextButton = document.createElement("button");
+        nextButton.textContent = ">>";
+        nextButton.addEventListener("click", event => {
+            currentPage++;
+            updateDataList();
+            updatePagination();
+        });
+        pagination.appendChild(nextButton);
+    }
+}
 
 }
+
   ///////////////////////////////////////////////

@@ -119,20 +119,20 @@ body {
   background-repeat: no-repeat;
   width: 80%;
   font-size: 16px;
-  margin-left: 1cm;
+  margin-left: 0.55cm;
   padding: 15px 15px 15px 10px;
   border-radius: 25px;
   text-align: center;
 }
 
 #data{
-  margin :0px;
-  padding: 10px 15px 15px 50px;
+  margin-left :0cm;
+  padding: 10px 15px 15px 20px;
 }
 
 #data li{
   list-style:none;
-  padding:20px;
+  padding:15px;
   margin: 5px;
   border: 1px solid #e4e4e4;
   background-color: white;
@@ -147,13 +147,15 @@ body {
 }
 
 #pagination button {
-  padding: 10px;
+  padding: 15px;
   font-size: 16px;
   border: solid 1px #ddd;
-  margin-right: 10px;
-  background-color: white;
+  margin-right: 5px;
+  background-color:  white;
+  color:  rgb(66, 92, 131);
+  border-radius: 10px;
 }
 
 #pagination .active {
-  background-color: #ddd;
+  background-color: rgb(200, 198, 198);
 }
