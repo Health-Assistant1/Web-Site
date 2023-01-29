@@ -64,12 +64,12 @@ function filterData(){
     pagination.innerHTML = "";
     const pageCount = Math.ceil(filteredData.length / itemsPerPage);
     let startPage = currentPage;
-    let endPage = currentPage + 4;
+    let endPage = currentPage + 3;
 
-    if(currentPage > 3){
-        startPage = currentPage - 2;
-        endPage = currentPage + 1;
-    }
+    // if(currentPage > 3){
+    //     startPage = currentPage - 3;
+    //     endPage = currentPage + 1;
+    // }
     if(endPage > pageCount){
         endPage = pageCount;
         startPage = endPage - 4;
