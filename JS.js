@@ -27,13 +27,15 @@ function filterData(){
   
   let filteredData = [];
   let currentPage = 1;
-  
+  try {
+    
+   
   // Retrieve data from file
   fetch("sick.txt")
     .then(response => response.text())
     .then(data => {
       const dataArray = data.split("\n");
-  
+    
       // Filter data based on search input
       searchInput.addEventListener("input", event => {
         const searchTerm = event.target.value.toLowerCase();
@@ -46,7 +48,13 @@ function filterData(){
       updateDataList();
       updatePagination();
     });
-
+  }catch(error){
+    if (error.code === "ENOENT") {
+        console.error("File not found!");
+      } else {
+        throw error;
+      }
+  }
   
   function updateDataList() {
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -66,11 +74,7 @@ function filterData(){
     let startPage = currentPage;
     let endPage = currentPage + 3;
 
-    // if(currentPage > 3){
-    //     startPage = currentPage - 3;
-    //     endPage = currentPage + 1;
-    // }
-    if(endPage > pageCount){
+       if(endPage > pageCount){
         endPage = pageCount;
         startPage = endPage - 4;
     }
